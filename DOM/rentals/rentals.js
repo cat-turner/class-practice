@@ -23,6 +23,15 @@ var carRental = {
     address: "123 ABC street, RI Ways 02999",
     cars: [
         {
+            id: 0,
+            type: 'sport',
+            price: '10',
+            total: 2,
+            taken:0,
+            make:'mazda',
+            model: 'miata',
+        },
+        {
             id: 1,
             type: 'sedan',
             price: '1',
@@ -64,8 +73,8 @@ var carRental = {
             price: '100',
             total: 10,
             taken:5,
-            make: 'bmw',
-            model: 'x5'
+            make: 'audi',
+            model: 'Q7'
         },
         {
             id: 6,
@@ -73,8 +82,8 @@ var carRental = {
             price: '1000',
             total: 10,
             taken:5,
-            make:'tesla',
-            model: 'model s',
+            make:'nissan',
+            model: 'GT-R',
         },
         {
             id: 7,
@@ -82,13 +91,14 @@ var carRental = {
             price: '10',
             total: 10,
             taken:5,
-            make:'mini cooper',
-            model: 'hard top 2 door',
+            make:'fiat',
+            model: '500',
         },
         
     ],
 
     bookCar: function(carId){
+        var allCars = this.cars
         for (var i = 0; i < allCars.length; i++){
             if (allCars[i].id == carId){
                 this.cars[i].taken += 1;
@@ -98,7 +108,7 @@ var carRental = {
         
         
     },
-    carsAvailableType: function(carType) {
+    getcarsAvailableType: function(carType) {
         var allCars = this.cars;
         var availCarsId = [];
         var car;
@@ -111,7 +121,7 @@ var carRental = {
 
                 if (numAvail > 0){
 
-                    availCarsId.push(allCars[i].id);
+                    availCarsId.push(car.id);
 
                 }
                 
@@ -131,6 +141,22 @@ var carRental = {
         }
         
         
+    },
+    getAllAvailableTypes: function (){
+        var allCars = this.cars;
+        var availCarsType = [];
+        var car;
+        var numAvail;
+        for (var i = 0; i < allCars.length; i++){
+            car = allCars[i];
+            numAvail = allCars[i].total - allCars[i].taken;
+            
+            if (availCarsType.indexOf(car.type) == -1 && numAvail > 0){
+                availCarsType.push(car.type);
+            }
+        }
+        return availCarsType;
+        
     }
     
         
@@ -138,10 +164,11 @@ var carRental = {
 }
 
 var Rental = class Rental {
-  constructor(name, carId, daysRent) {
+  constructor(name, carId, daysRent, carType) {
     this.name = name;
     this.carId = carId;
     this.daysRent = daysRent;
+    this.carType = carType;
   }
   
 };
@@ -150,7 +177,8 @@ var Renters = {
     renters: [
         ],
     addRental: function(name, carId, daysRent) {
-        const renter = new Rental(name, carId, daysRent);
+        var car = carRental.getCarById(carId)
+        const renter = new Rental(name, carId, daysRent, car.type);
         this.renters.push(renter);
     }
 }
@@ -160,3 +188,33 @@ to do:
 print objs
 check if functions work
 make html page for rents*/
+
+/*
+
+console.log(Renters);
+console.log(carRental);
+
+Renters.addRental("cat",1,3);
+
+console.log(Renters);
+
+var availableCars = carRental.getcarsAvailableType('suv');
+
+for (var i = 0; i < availableCars.length; i++){
+    console.log(carRental.getCarById(availableCars[i]));
+}
+
+
+carRental.bookCar(5)
+carRental.bookCar(5)
+carRental.bookCar(5)
+carRental.bookCar(5)
+carRental.bookCar(5)
+
+console.log("-----")
+var availableCars = carRental.getcarsAvailableType('suv');
+
+for (var i = 0; i < availableCars.length; i++){
+    console.log(carRental.getCarById(availableCars[i]));
+}
+*/
