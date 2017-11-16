@@ -1,9 +1,15 @@
 /*global carRental*/
+/*global $*/
+/*global Renters*/
 
 /* To show items in the dropdown menu*/
 function showItems(){
+    /*check if cars available*/
+    if (!carsAvailable()){
+        return
+    }
     var dropdown = document.getElementById("rentDropDown");
-    document.getElementById("rentDropDown").classList.toggle("show");
+    dropdown.classList.toggle("show");
     if (dropdown.style.display !== "none"){
         var menuList = document.getElementById("rentDropDownUL");
         var availCarIds = carRental.getAllAvailableTypes().sort();
@@ -35,12 +41,10 @@ function getCarIdFromTag(idTag){
     return idTag.split("chkId-")[1];
 }
 
-/* Action when list items are selected*/
-/*
-var liItemSelect = document.getElementsByClassName("li-types");
-*/
+
 
 function getCarItem(car, checkBoxId){
+    /*checkbox requires this class to work: carCheckBox */
         
         var item = ""
         /*this looks terrible. there has to be a better way*/
@@ -49,23 +53,24 @@ function getCarItem(car, checkBoxId){
         item += '<i class="fa fa-car fa-2x" aria-hidden="true"></i>';
         item += `<span>${car.model}</span>`;
         item += '<span class="mdl-list__item-text-body">';
-        item += `${car.make}. ${car.price}/day. ${car.total-car.taken} available.</span>`;
-        //item += '<span class="mdl-list__item-secondary-action">';
-        //item += `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${checkBoxId}">`;
-        //item += `<input type="checkbox" id="${checkBoxId}" class="mdl-checkbox__input carCheckBox" checked />`;
-        //item += '</label></span></li>';
-        item += '<span class="mdl-list__item-secondary-action">';
-        item += '<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">'
-        item += '<input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" checked />'
+        item += `${car.make}.$${car.price}/day. ${car.total-car.taken} available.</span>`;
+        item += '</span>';
+        /*to do - need to figure out why mdl checkboxes arent rendering right*/
+        item += `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${checkBoxId}">`;
+        item += `<input type="checkbox" id="${checkBoxId}" class="mdl-checkbox__input carCheckBox">`
+        item += '<span class="mdl-checkbox__label"></span>'
         item += '</label>'
-        item += '</span>'
         item += '</li>'
         return item;
     
 }
 
+/*A temp place to hold selection data*/
+var carsChosen = [];
 
 function pickDropDownItem(){
+    /* make the car type drop down list go away after selection*/
+    document.getElementById("rentDropDown").classList.toggle("show");
 
     /* get user selection */
     var carType = getCarTypeFromTag(this.id);
@@ -86,13 +91,12 @@ function pickDropDownItem(){
     for (var i = 0; i < liItemSelect.length; i++) {
         liItemSelect[i].addEventListener('click', pickCar, false);
     }
-    
-    
+    document.getElementById("availableCars").classList.toggle("show");
+    /* TODO highlight cars that have already been checked*/
     
 }
 
-/*A temp place to hold selection data*/
-var carsChosen = [];
+
 
 function pickCar(){
     var carId = getCarIdFromTag(this.id);
@@ -106,11 +110,73 @@ function pickCar(){
     
 }
 
-/*when user clicks book, the following takes place
-1. get car ids from carsChosen
-2. check if name filled out. if not filled out, button should be
-inactive
-3. gets the name and reads arr carsChosen
-4. Check CarsChosen. If nothing, then not avilable
-5. Applies method bookCar in loop
-*/
+/* uncheck all boxes after booking*/
+function uncheckAll(classc) {
+    var checks = document.querySelectorAll('input[type=checkbox]'); 
+    for(var i =0; i< checks.length;i++){
+        var check = checks[i];
+        check.checked = false;
+        
+    }
+}
+
+function carsAvailable(){
+    var availtypes = carRental.getAllAvailableTypes()
+    if (availtypes == 0){
+        alert("no cars available :(");
+        return false;
+    }
+    return true;
+}
+
+
+
+function bookCars(){
+
+    if (!carsAvailable()){
+        return
+    }
+
+    var name = document.getElementById("user").value;
+    if (name === ""){
+        alert("please enter your name");
+        return
+    }
+    var daysRent = document.getElementById("daysrent").value;
+    if (daysRent === ""){
+        alert("please enter the number of days you'd like to rent a car");
+        return
+    }
+    
+    if (carsChosen.length == 0){
+        alert("Please choose a car.");
+        return
+    }
+    
+    /* add user to Renters class*/
+    var carId;
+    var car;
+    var total = 0;
+    for (var i = 0; i < carsChosen.length; i++){
+        carId = carsChosen[i];
+        car = carRental.getCarById(carId);
+        Renters.addRental(name,carId,daysRent);
+        console.log(parseFloat(car.price))
+        console.log(parseFloat(daysRent))
+        total += parseFloat(car.price)*parseFloat(daysRent);
+        
+        
+    }
+    
+    alert(`thanks! your total is ${total}`);
+    console.log(Renters);
+    console.log(carRental.cars)
+    /* clean up*/
+    uncheckAll("carCheckBox")
+    document.getElementById("availableCars").classList.toggle("show");
+    carsChosen = [];
+    document.getElementById("user").value = "";
+    document.getElementById("daysrent").value = "";
+    
+    
+}

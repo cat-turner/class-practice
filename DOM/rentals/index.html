@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,58 +17,52 @@
     <!--<script src="rental.js"></script>-->
     <title>Document</title>
 </head>
+
 <body>
 
-<div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--4-col"></div>
-  <div class="mdl-cell mdl-cell--4-col"><h1>Rent it.</h1></div>
-  <div class="mdl-cell mdl-cell--4-col"></div>
-</div>
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col"></div>
+            <div class="mdl-cell mdl-cell--4-col">
+                <h1>Rent it.</h1></div>
+            <div class="mdl-cell mdl-cell--4-col"></div>
+        </div>
+        <form action="#">
+            <div class="mdl-grid">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="user" pattern="[A-Z,a-z, ]*">
+                    <label class="mdl-textfield__label" for="user">your name</label>
+                    <span class="mdl-textfield__error">only letters and spaces</span>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="daysrent">
+                    <label class="mdl-textfield__label" for="daysrent">days to rent</label>
+                    <span class="mdl-textfield__error">only numbers</span>
+                </div>
+            </div>
+        </form>
 
-<div class="mdl-grid">
-    <form action="">
-        <label for="name">Name:</label>
-        <input type="text" id="name">
-        
-    </form>
-    
-    <div class="dropdown">
+        <div class="dropdown">
             <button onclick="showItems()" id="rentalBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Rent Me...
+                Rent <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
             </button>
             <div id="rentDropDown" class="dropdown-content">
                 <ul id="rentDropDownUL" class="dropdown-list-item mdl-list">
                     <!-- li items -->
                 </ul>
             </div>
-    </div>
-    
-    <div class="availableCars">
-        <ul id="availCarsUL" class="mdl-list">
-            <!-- li items -->
+        </div>
 
-<!--  
-    <li class="mdl-list__item mdl-list__item--three-line">
-    <span class="mdl-list__item-primary-content">
-      <i class="fa fa-car fa-2x" aria-hidden="true"></i>
-      <span>Miata</span>
-      <span class="mdl-list__item-text-body">
-        Mazda. $1/day. 5 available.
-      </span>
-    </span>
-    <span class="mdl-list__item-secondary-action">
-      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="list-checkbox-1">
-        <input type="checkbox" id="list-checkbox-1" class="mdl-checkbox__input" checked />
-      </label>
-    </span>
-  </li>-->
-  
-        </ul>
-        
+        <div id=availableCars class="caritems-content">
+            <ul id="availCarsUL" class="mdl-list">
+                <!-- li items -->
+            </ul>
+        </div>
+        <button onclick="bookCars()" id="bookBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Book
+        </button>
+
     </div>
 
-</div>
-    
-    
 </body>
+
 </html>

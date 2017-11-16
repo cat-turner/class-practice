@@ -1,23 +1,3 @@
-
-/*
-2 objects
-Car rental
-Rental - name of renter & car type
-
-Site should have form
-Form contains:
-Text field input Renter name
-Dropdown to select car type.
-
-Selecting cartype should:
-Display # available
-Display cartype’s price
-
-Button to rent car should:
-Not work if renter name empty or car not selected or no cars available
-If valid add the Name and car type to rent object
-*/
-
 var carRental = {
     name: "Bebe's Car Rental",
     address: "123 ABC street, RI Ways 02999",
@@ -25,7 +5,7 @@ var carRental = {
         {
             id: 0,
             type: 'sport',
-            price: '10',
+            price: 10,
             total: 2,
             taken:0,
             make:'mazda',
@@ -34,7 +14,7 @@ var carRental = {
         {
             id: 1,
             type: 'sedan',
-            price: '1',
+            price: 1,
             total: 10,
             taken:5,
             make:'toyota',
@@ -43,16 +23,16 @@ var carRental = {
         {
             id: 2,
             type: 'suv',
-            price: '100',
+            price: 100,
             total: 10,
             taken:5,
             make: 'bmw',
-            model: 'x5'
+            model: 'X5'
         },
         {
             id: 3,
             type: 'sport',
-            price: '1000',
+            price: 1000,
             total: 10,
             taken:5,
             make:'tesla',
@@ -61,7 +41,7 @@ var carRental = {
         {
             id: 4,
             type: 'compact',
-            price: '10',
+            price: 10,
             total: 10,
             taken:5,
             make:'mini cooper',
@@ -70,7 +50,7 @@ var carRental = {
         {
             id: 5,
             type: 'suv',
-            price: '100',
+            price: 100,
             total: 10,
             taken:5,
             make: 'audi',
@@ -79,18 +59,18 @@ var carRental = {
         {
             id: 6,
             type: 'sport',
-            price: '1000',
+            price: 1000,
             total: 10,
-            taken:5,
+            taken:9,
             make:'nissan',
             model: 'GT-R',
         },
         {
             id: 7,
             type: 'compact',
-            price: '10',
-            total: 10,
-            taken:5,
+            price: 10,
+            total: 9,
+            taken:9,
             make:'fiat',
             model: '500',
         },
@@ -180,41 +160,6 @@ var Renters = {
         var car = carRental.getCarById(carId)
         const renter = new Rental(name, carId, daysRent, car.type);
         this.renters.push(renter);
+        carRental.bookCar(carId);
     }
 }
-
-/*
-to do:
-print objs
-check if functions work
-make html page for rents*/
-
-/*
-
-console.log(Renters);
-console.log(carRental);
-
-Renters.addRental("cat",1,3);
-
-console.log(Renters);
-
-var availableCars = carRental.getcarsAvailableType('suv');
-
-for (var i = 0; i < availableCars.length; i++){
-    console.log(carRental.getCarById(availableCars[i]));
-}
-
-
-carRental.bookCar(5)
-carRental.bookCar(5)
-carRental.bookCar(5)
-carRental.bookCar(5)
-carRental.bookCar(5)
-
-console.log("-----")
-var availableCars = carRental.getcarsAvailableType('suv');
-
-for (var i = 0; i < availableCars.length; i++){
-    console.log(carRental.getCarById(availableCars[i]));
-}
-*/
