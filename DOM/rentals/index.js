@@ -50,18 +50,18 @@ function getCarItem(car, checkBoxId){
         /*this looks terrible. there has to be a better way*/
         item += '<li class="mdl-list__item mdl-list__item--three-line">';
         item += '<span class="mdl-list__item-primary-content">';
-        item += '<i class="fa fa-car fa-2x" aria-hidden="true"></i>';
+        item += '<i class="material-icons">directions_car</i>';
         item += `<span>${car.model}</span>`;
         item += '<span class="mdl-list__item-text-body">';
         item += `${car.make}.$${car.price}/day. ${car.total-car.taken} available.</span>`;
         item += '</span>';
-        /*to do - need to figure out why mdl checkboxes arent rendering right*/
-        item += `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="${checkBoxId}">`;
+        item += `<label class="mdl-checkbox mdl-js-checkbox" for="${checkBoxId}">`;
         item += `<input type="checkbox" id="${checkBoxId}" class="mdl-checkbox__input carCheckBox">`
         item += '<span class="mdl-checkbox__label"></span>'
         item += '</label>'
         item += '</li>'
         return item;
+
     
 }
 
@@ -89,10 +89,25 @@ function pickDropDownItem(){
     carListUL.innerHTML = listItems;
     var liItemSelect = document.getElementsByClassName("carCheckBox");
     for (var i = 0; i < liItemSelect.length; i++) {
-        liItemSelect[i].addEventListener('click', pickCar, false);
+        /*liItemSelect[i].addEventListener('click', pickCar, false);*/
+        liItemSelect[i].addEventListener('change', pickCar);
+        
     }
-    document.getElementById("availableCars").classList.toggle("show");
-    /* TODO highlight cars that have already been checked*/
+    
+    /* render elements as checked*/
+    var checkBox;
+    for (var i = 0; i < carsChosen.length; i++){
+        checkBoxId = "chkId-" + carsChosen[i];
+        checkBox = document.getElementById(checkBoxId);
+        if (checkBox && !checkBox.checked){
+            checkBox.checked=true;
+        }
+        
+        
+    }
+    componentHandler.upgradeDom('MaterialCheckbox');
+    
+
     
 }
 
@@ -106,18 +121,12 @@ function pickCar(){
     }else{
         carsChosen = carsChosen.filter(val => val !== carId);
     }
-    console.log(carsChosen);
-    
+
 }
 
-/* uncheck all boxes after booking*/
-function uncheckAll(classc) {
-    var checks = document.querySelectorAll('input[type=checkbox]'); 
-    for(var i =0; i< checks.length;i++){
-        var check = checks[i];
-        check.checked = false;
-        
-    }
+
+function uncheckAll() {
+    document.querySelector('.mdl-js-checkbox').MaterialCheckbox.uncheck()
 }
 
 function carsAvailable(){
@@ -161,22 +170,20 @@ function bookCars(){
         carId = carsChosen[i];
         car = carRental.getCarById(carId);
         Renters.addRental(name,carId,daysRent);
-        console.log(parseFloat(car.price))
-        console.log(parseFloat(daysRent))
         total += parseFloat(car.price)*parseFloat(daysRent);
         
         
     }
     
     alert(`thanks! your total is ${total}`);
-    console.log(Renters);
-    console.log(carRental.cars)
     /* clean up*/
-    uncheckAll("carCheckBox")
+    uncheckAll()
     document.getElementById("availableCars").classList.toggle("show");
     carsChosen = [];
     document.getElementById("user").value = "";
     document.getElementById("daysrent").value = "";
+    document.getElementById("availCarsUL").innerHTML = "";
     
     
 }
+

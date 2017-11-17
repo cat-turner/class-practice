@@ -40,10 +40,12 @@
                 </div>
             </div>
         </form>
-
+        
+        <div class="mdl-grid">
         <div class="dropdown">
             <button onclick="showItems()" id="rentalBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Rent <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                Rent <!--<i class="fa fa-chevron-circle-down" aria-hidden="true"></i>-->
+                <i class="material-icons">arrow_drop_down_circle</i>
             </button>
             <div id="rentDropDown" class="dropdown-content">
                 <ul id="rentDropDownUL" class="dropdown-list-item mdl-list">
@@ -51,17 +53,21 @@
                 </ul>
             </div>
         </div>
-
+        </div>
+        <div class="mdl-grid">
         <div id=availableCars class="caritems-content">
             <ul id="availCarsUL" class="mdl-list">
                 <!-- li items -->
             </ul>
         </div>
+        </div>
+        
+        <div class="mdl-grid">
         <button onclick="bookCars()" id="bookBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Book
         </button>
+        </div>
 
-    </div>
 
 </body>
 
