@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-cyan.min.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <script src="https://use.fontawesome.com/10795c302c.js"></script>
@@ -14,60 +14,89 @@
     <!--load rentals first, bc index gets values from it-->
     <script src="rentals.js"></script>
     <script src="index.js"></script>
-    <!--<script src="rental.js"></script>-->
-    <title>Document</title>
+
+    <title>Rent it.</title>
 </head>
 
 <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout-icon"><i class="material-icons">sentiment_very_satisfied</i></div>
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout__title">Rent it.</span>
+            </div>
+        </header>
 
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col"></div>
-            <div class="mdl-cell mdl-cell--4-col">
-                <h1>Rent it.</h1></div>
-            <div class="mdl-cell mdl-cell--4-col"></div>
-        </div>
-        <form action="#">
+        <main class="mdl-layout__content app-main">
             <div class="mdl-grid">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="user" pattern="[A-Z,a-z, ]*">
-                    <label class="mdl-textfield__label" for="user">your name</label>
-                    <span class="mdl-textfield__error">only letters and spaces</span>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="daysrent">
-                    <label class="mdl-textfield__label" for="daysrent">days to rent</label>
-                    <span class="mdl-textfield__error">only numbers</span>
-                </div>
-            </div>
-        </form>
-        
-        <div class="mdl-grid">
-        <div class="dropdown">
-            <button onclick="showItems()" id="rentalBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Rent <!--<i class="fa fa-chevron-circle-down" aria-hidden="true"></i>-->
-                <i class="material-icons">arrow_drop_down_circle</i>
-            </button>
-            <div id="rentDropDown" class="dropdown-content">
-                <ul id="rentDropDownUL" class="dropdown-list-item mdl-list">
-                    <!-- li items -->
-                </ul>
-            </div>
-        </div>
-        </div>
-        <div class="mdl-grid">
-        <div id=availableCars class="caritems-content">
-            <ul id="availCarsUL" class="mdl-list">
-                <!-- li items -->
-            </ul>
-        </div>
-        </div>
-        
-        <div class="mdl-grid">
-        <button onclick="bookCars()" id="bookBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Book
-        </button>
-        </div>
+                <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--6-col app-content">
 
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="user" pattern="[A-Z,a-z, ]*">
+                        <label class="mdl-textfield__label" for="user">your name</label>
+                        <span class="mdl-textfield__error">only letters and spaces</span>
+                    </div>
+
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="daysrent">
+                        <label class="mdl-textfield__label" for="daysrent">days to rent</label>
+                        <span class="mdl-textfield__error">only numbers</span>
+                    </div>
+                    <div>
+                        <div class="demo-crumbs mdl-color-text--grey-500">
+                            Select a car to rent from the dropdown menu.
+                        </div>
+                        <div class="dropdown">
+                            <button onclick="showItems()" id="rentalBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Rent
+                                <!--<i class="fa fa-chevron-circle-down" aria-hidden="true"></i>-->
+                                <i class="material-icons">arrow_drop_down_circle</i>
+                            </button>
+                            <div id="rentDropDown" class="dropdown-content">
+                                <ul id="rentDropDownUL" class="dropdown-list-item mdl-list">
+                                    <!-- li items -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id=availableCars class="caritems-content">
+                        <ul id="availCarsUL" class="mdl-list">
+                            <!-- li items -->
+                        </ul>
+                    </div>
+
+                    <button onclick="bookCars()" id="bookBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Book
+                    </button>
+                </div>
+            </div>
+
+            <!--footer-->
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                    <div class="mdl-logo">
+                        Rent it.
+                    </div>
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="https://github.com/cat-turner">By Cat Turner</a></li>
+                        <li><a href="https://twitter.com/careerdevs">For Career Devs</a></li>
+                    </ul>
+                </div>
+                <div class="mdl-mini-footer__right-section">
+                    <div>
+                        <button class="mdl-mini-footer__social-btn">
+                            <a href="https://twitter.com/tinyseashells"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        </button>
+
+                    </div>
+
+                </div>
+            </footer>
+
+        </main>
+    </div>
 
 </body>
 

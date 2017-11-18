@@ -18,25 +18,25 @@
 }
 
 .caritems-content {
-    /*display:none;*/
+    padding: 20px 20px 20px 20px;
+
 }
 
 .show {
     display:block;
 }
-/*font awesome*/
 
-/*padding guidelines*/
-/*https://material.io/guidelines/components/lists.html#lists-specs*/
-/*
 
-i {
-    margin-left: 16px;
-    margin-right: 72px;
+.app-main {
+  margin-top: 10vh;
+  flex-shrink: 0;
 }
 
-.mdl-checkbox__input{
-    margin-left: 16px;
-    margin-right:16px;
+.app-content {
+    padding: 20px 20px 20px 20px;
+    box-sizing: border-box;
+    border-width: 10px;
+    border-style: solid;
+    border-color: rgba(255,69,0, .75);
+    margin-bottom: 50vh;
 }
-*/
