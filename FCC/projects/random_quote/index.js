@@ -1,6 +1,8 @@
 /*global Headers*/
 /*global Request*/
 /*global fetch*/
+/*global quoteBank*/
+/*global imageBank*/
 
 
 // read the forms to get the user inputs for
@@ -18,19 +20,12 @@ class formReader {
 }
 
 
-function injectQuote(){
-    var quoteBox = document.getElementById("quoteBox");
-    quoteBox.textContent = quote.getQuote();
-    
-    
-}
 
-var data = ''
+
+var quoteData = [];
 
 class QuoteGrabber {
     constructor(){
-        /* set up the header */
-/* PUT KEYS HERE */
         var myHeaders = new Headers();
         myHeaders.append('Accept', 'text/plain');
         myHeaders.append('X-Mashape-Key', 'k9OYUtOdtOmsh1YJfhpPXrade2cqp1G9j9ujsnCc9EuxJNlyUg');
@@ -44,43 +39,6 @@ class QuoteGrabber {
         }
         
     }
-    
-
-/*
-    getQuote(parameter, searchTerm){
-        var q = this.querySetup(parameter, searchTerm);
-        
-        var myRequest = new Request(q, this.myInit)
-        console.log(Request);
-        var result = fetch(myRequest)
-        .then(function(response) {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            // Read the response as json.
-            return response.json();
-            
-        })
-        .then(function(responseAsJson){
-            var result = responseAsJson;
-            data = result;
-            return result;
-            
-        })
-        .catch(function(error) {
-            console.log('Error with request:', error);
-        });
-        */
-        //console.log(result);
-        /*
-        result.then(function(defs){
-            return defs;
-            
-        });*/
-        //return this.getRandom(result);
-        
-        
-    //}
 
     querySetup(parameter, input){
     input = input.replace(" ", "+");
@@ -91,6 +49,7 @@ class QuoteGrabber {
         /* picks a number between that range*/
         var nQuotes = result.length;
         var idx = Math.floor(Math.random() * nQuotes);
+        console.log(idx);
         return result[idx]
     }
 
@@ -103,75 +62,58 @@ class QuoteGrabber {
         return this._data;
     }
     
-    getRandomQuote(parameter, searchTerm){
+    getRandomQuote(){
+        /*
         var quotes = [];
         this.getQuotes(parameter, searchTerm).then(d => quotes.push(d));
-        console.log("quotes");
-        var result = Promise.resolve(quotes)
+        console.log("quotes");*/
+        return this.getRandom(quoteBank.quotes)
         
-        console.log(result);
-        console.log("quotes.length");
-        console.log(quotes.length);
-        console.log("quotes[0]");
-        console.log(quotes[0]);
-        var quote_data = quotes[0];
-        console.log("---");
-        
-        console.log(quotes);
-        console.log("end");
+    }
+    
+    getRandomImage(){
+        return this.getRandom(imageBank.imgs);
     }
     
 }
 
-var quote = new QuoteGrabber();
-var quotes = []
-quote.getQuotes('actor','will ferrell').then(d => quotes.push(d))
+function quoteToTweet(text){
+    return encodeURIComponent(text);
+    
+}
 
-//console.log("---");
-//console.log(quotes);
+var quotes = new QuoteGrabber();
 
-quote.getRandomQuote('actor','will ferrell')
+function makeQuoteCard(){
+    var quote = quotes.getRandomQuote();
+    var image = quotes.getRandomImage();
+    var UL = document.getElementById("quotes-list");
+    var li = document.createElement("LI");
+    li.className += "mdl-card mdl-shadow--4dp quote-bin";
+    
+    var mediaDiv = document.createElement("DIV");
+    var img = document.createElement("IMG");
+    img.style.padding="1px";
+    img.setAttribute("src", image.url);
+    img.setAttribute("border", 0);
+    img.setAttribute("width", "300");
+    img.setAttribute("height", "300");
+    img.style.opacity = 0.5;
+    //img.setAttribute("margin", "10");
+    mediaDiv.appendChild(img);
+    var quotespan = document.createElement('span')
+    quotespan.innerHTML = quote.quote
+    li.appendChild(mediaDiv);
+    li.appendChild(quotespan)
 
-
-/*
-var myHeaders = new Headers();
-myHeaders.append('Accept', 'text/plain')
-myHeaders.append('X-Mashape-Key', 'k9OYUtOdtOmsh1YJfhpPXrade2cqp1G9j9ujsnCc9EuxJNlyUg')
-myHeaders.append('Authorization',"Token token=yd8WzkWNEEzGtqMSgiZBrwtt")
-
-var myInit = { 
-    method: 'GET',
-    headers: myHeaders,
-    mode: 'cors',
-    cache: 'default'
-};
-
-
-function querySetup(parameter, input){
-    var output = input.replace(" ", "+");
-    return 
+    var anchorItem = document.createElement('A');
+    anchorItem.href = `https://twitter.com/intent/tweet?text=${quoteToTweet(quote.quote)}`;
+    anchorItem.innerHTML = '<i class="fa fa-twitter" aria-hidden="true"></i>';
+    li.appendChild(anchorItem);
+    UL.prepend(li);
+    
 }
 
 
-console.log(myHeaders.get('Accept'))
 
-var myRequest = new Request('https://juanroldan1989-moviequotes-v1.p.mashape.com/api/v1/quotes?movie=kill+bill', myInit);
-
-var result = fetch(myRequest)
-.then(function(response) {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response.json();
-})
-.then(function(responseAsJson){
-    console.log(responseAsJson);
-    
-})
-.catch(function(error) {
-    console.log('Error with request:', error);
-});
-
-console.log(result);
-*/
 

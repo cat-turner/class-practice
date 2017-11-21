@@ -1,0 +1,15 @@
+.quote-bin{
+    padding:  10px 10px 10px 10px;
+    margin: 20px 0 0 10px;
+    height:400px;
+    width:320px;
+    font-family: 'Sue Ellen Francisco', cursive;
+    font-style: italic;
+    font-size:25px;
+}
+
+ul {
+  list-style-type: none;
+  padding:0;
+  margin:0;
+}
