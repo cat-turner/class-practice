@@ -25,6 +25,7 @@ function injectQuote(){
     
 }
 
+var data = ''
 
 class QuoteGrabber {
     constructor(){
@@ -43,7 +44,9 @@ class QuoteGrabber {
         }
         
     }
+    
 
+/*
     getQuote(parameter, searchTerm){
         var q = this.querySetup(parameter, searchTerm);
         
@@ -60,17 +63,24 @@ class QuoteGrabber {
         })
         .then(function(responseAsJson){
             var result = responseAsJson;
+            data = result;
             return result;
             
         })
         .catch(function(error) {
             console.log('Error with request:', error);
         });
-        console.log(result);
+        */
+        //console.log(result);
+        /*
+        result.then(function(defs){
+            return defs;
+            
+        });*/
+        //return this.getRandom(result);
         
-        return this.getRandom(result);
         
-    }
+    //}
 
     querySetup(parameter, input){
     input = input.replace(" ", "+");
@@ -83,12 +93,44 @@ class QuoteGrabber {
         var idx = Math.floor(Math.random() * nQuotes);
         return result[idx]
     }
+
+    getQuotes(parameter, searchTerm) {
+        var q = this.querySetup(parameter, searchTerm);
+        var myRequest = new Request(q, this.myInit)
+        if (this._data) return this._data;
+        this._data = fetch(myRequest)
+                          .then(resp => resp.json());
+        return this._data;
+    }
+    
+    getRandomQuote(parameter, searchTerm){
+        var quotes = [];
+        this.getQuotes(parameter, searchTerm).then(d => quotes.push(d));
+        console.log("quotes");
+        var result = Promise.resolve(quotes)
+        
+        console.log(result);
+        console.log("quotes.length");
+        console.log(quotes.length);
+        console.log("quotes[0]");
+        console.log(quotes[0]);
+        var quote_data = quotes[0];
+        console.log("---");
+        
+        console.log(quotes);
+        console.log("end");
+    }
     
 }
 
 var quote = new QuoteGrabber();
-var output = quote.getQuote('actor','will ferrell');
-console.log(output);
+var quotes = []
+quote.getQuotes('actor','will ferrell').then(d => quotes.push(d))
+
+//console.log("---");
+//console.log(quotes);
+
+quote.getRandomQuote('actor','will ferrell')
 
 
 /*
