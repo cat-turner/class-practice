@@ -1,5 +1,5 @@
 
-var name = "palidrome";
+var name = "truncatestring";
 
 
  /**
@@ -9,17 +9,19 @@ var name = "palidrome";
 
 function truncateString(str, num) {
   // Clear out that junk in your trunk
-  var truncWord = "";
-  var i = 0;
-  while(truncWord.length < num){
-    truncWord += str[i];
-    i += 1;
+  if (num < str.length){
+      var limit = num;
+      if (str.length > 3 && num > 3){
+          limit -= 3;
+      }
+      var truncWordArr = str.split('');
+      truncWordArr.splice(limit, str.length - limit, '...');
+      var truncWord = truncWordArr.join('');
+      return truncWord;
+  }else{
+      return str;
   }
-  if (truncWord.length > 3){
-    truncWord = truncWord.split('')
-    truncWord.splice(3).join('');
-  }
-  return truncWord + '...';
+  
 }
 
 truncateString("A-tisket a-tasket A green and yellow basket", 11);
@@ -31,9 +33,10 @@ truncateString("A-tisket a-tasket A green and yellow basket", 11);
 var expecteds = [
     ["A-tisket a-tasket A green and yellow basket", 11, "A-tisket..."],
     ["Peter Piper picked a peck of pickled peppers", 14, "Peter Piper..."],
-    ["A-", 1, true],
-    ["Open sesame", "pen", false],
-    ["He has to give me a new name", "name", true]
+    ["A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length, "A-tisket a-tasket A green and yellow basket"],
+    ["A-tisket a-tasket A green and yellow basket", "A-tisket a-tasket A green and yellow basket".length + 2, "A-tisket a-tasket A green and yellow basket"],
+    ["A-", 1, "A..."],
+    ["Absolutely Longer", 2, "Ab..."]
 
 ];
 
