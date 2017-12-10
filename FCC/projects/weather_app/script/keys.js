@@ -1,0 +1,3 @@
+// weather api
+/* global WEATHER_API_KEY*/
+WEATHER_API_KEY = '3680bd281d006989e82b33275f851757'

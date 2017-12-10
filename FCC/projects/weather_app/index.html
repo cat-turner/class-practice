@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.yellow-light_blue.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="style.css"/>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout-icon"><i class="fa fa-sun-o fa-2x" aria-hidden="true"></i></div>
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout__title">weather.io</span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="#">my Location</a>
+                    <a class="mdl-navigation__link" href="#">my Spots</a>
+                </nav>
+            </div>
+        </header>
+        
+        <main class="mdl-layout__content">
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-grid">
+                    <h1>Now at Providence</h1>
+                </div>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--8-col">
+                    <ul class="mdl-list">
+                        <li class="mdl-list">
+                            snow
+                        </li>
+                        <li class="mdl-list">
+                            temp: 32 deg C
+                        </li>
+                        <li class="mdl-list">
+                            wind: 10 m/s NW
+                        </li>
+                        <li class="mdl-list">
+                            humidity: 37 %
+                        </li>
+                        <li class="mdl-list">
+                            cloudy
+                        </li>
+                    </ul>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <i class="material-icons icon-sz">ac_unit</i>
+                    </div>
+                    
+                    
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    units:
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-radio-space" for="flash1">
+                            <input checked class="mdl-radio__button" id="flash1" name="flash" type="radio"
+                               value="on">
+                              <span class="mdl-radio__label"> metric</span>
+                        </label>
+                        
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-radio-space" for="flash2">
+                          <input class="mdl-radio__button" id="flash2" name="flash" type="radio" value="off">
+                          <span class="mdl-radio__label"> imperial</span>
+                        </label>
+
+                </div>
+
+                
+            </div>
+            
+
+            
+        </main>
+            
+    </div>
+
+<script src="script/keys.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoolS6YBcuK0Zwk_JFckvq-BvGEc4IF6o"></script>
+<script src="script/utils.js"></script>
+<script src="script/index.js"></script>
+</body>
+</html>
