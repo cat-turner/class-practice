@@ -1,23 +1,14 @@
 
-function cloudCover(perc){
-
-    if (perc <= 5){
-        return "clear";
-    }else if (perc > 5 && perc <= 50){
-        return "partly cloudy";
-    }else if (perc > 50 && perc <= 95){
-        return "mostly cloudy";
-    }else {
-        return "overcast"
-    }
-
-}
-
-function windSpeedUnit(units){
-    if(units == "imperial"){
-        return 'm/s';
-    }else{
-        return 'mph';
+var unitsKey = {
+    metric:{
+        wind:'m/s',
+        temp:'°C'
+    },
+    
+    imperial:{
+        wind:'mph',
+        temp:'°F'
+        
     }
 }
 
@@ -31,42 +22,25 @@ function windDegtoDir(dirDeg){
 
 
 function parseData(data, units){
-        
-        var weather = {
-            type: data.weather[0].main,
+        return {
+            weather: [
+                `temp: ${data.main.temp} ${unitsKey[units].temp}`,
+                `low: ${data.main.temp_min} ${unitsKey[units].temp}`,
+                `high: ${data.main.temp_max} ${unitsKey[units].temp}`,
+                `wind: ${data.wind.speed} ${unitsKey[units].wind} ${windDegtoDir(data.wind.deg)}`,
+                `humidity: ${data.main.humidity + ' %'}`,
+                
+            ],
+            city: data.name,
             description: data.weather[0].description,
             icon: getWeatherIcon(data.weather[0].id),
-            direction: windDegtoDir(data.wind.deg),
-            speed: data.wind.speed + ' ' + windSpeedUnit(units),
-            cloudcover: cloudCover(data.clouds.all),
-            temp: data.main.temp,
-            humid: data.main.humidity,
-            temp_min: data.main.temp_min,
-            temp_max: data.main.temp_max,
-            city: data.name
-            
-            
+    
         }
-        console.log(weather);
-        return weather;
-        
-}
+            
+    }
 
 // http://openweathermap.org/weather-conditions
-//https://material.io/icons
-
-/*
-<i class="material-icons">wb_sunny</i>
-                        <i class="material-icons">grain</i>
-                        <i class="material-icons">cloud_queue</i>
-                        <i class="material-icons">cloud</i>
-                        <i class="material-icons">filter_drama</i>
-                        <i class="material-icons">wb_sunny</i>
-                        <i class="material-icons">ac_unit</i>
-                        <i class="material-icons">brightness_1</i>
-                        <i class="fa fa-moon-o" aria-hidden="true"></i>
-                        <i class="fa fa-bolt" aria-hidden="true"></i>
-*/
+//TODO - use better icons, overall make this better,
 
 function getWeatherIcon(code){
     var codeStr = code.toString();
