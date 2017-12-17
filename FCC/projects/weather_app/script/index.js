@@ -9,22 +9,20 @@
 //https://jsfiddle.net/api/post/library/pure/
 // https://openweathermap.org/weather-data
 
-var units = "imperial";
+var units = "metric";
 
-function addradioButton(divobj, unit){
+function addradioButton(unit){
         var input = document.createElement("INPUT");
         input.setAttribute("type","radio");
         input.setAttribute("name", "unit"); //same name so only 1 can be selected
-        input.setAttribute("value", unit);
+        input.setAttribute("value", `${unit}`);
+        input.onchange=changeEventHandler;
+        input.setAttribute("class", "mdl-radio__button")
         return input;
         
     }
 
-function makeCard(data){
-        data = parseData(data, units);
-        var cardsDiv = document.createElement("DIV");
-        cardsDiv.setAttribute("class", "mdl-card mdl-shadow--2dp wide-card");
-        cardsDiv.id = data.city;
+function makeContent(contentDiv, data){
         var items = document.createElement("UL");
         items.innerHTML = `<h3>${data.city}</h3>`
         items.innerHTML += `<span class="weather-desc-second">${data.description}</span>`;
@@ -35,9 +33,9 @@ function makeCard(data){
             items.appendChild(entry);
             
         });
-        cardsDiv.appendChild(items);
-        cardsDiv.innerHTML += data.icon;
-        return cardsDiv;
+        contentDiv.appendChild(items);
+        contentDiv.innerHTML += data.icon;
+        return contentDiv;
         
 }
 
@@ -61,27 +59,50 @@ class WeatherCards {
         this.cards = []
     }
     
+    rerenderContent(data){
+        data = parseData(data, units);
+        var cardsDiv = document.getElementById("Card-" + data.city)
+        var contentDiv = document.getElementById(data.city);
+        cardsDiv.removeChild(contentDiv);
+        contentDiv = document.createElement("DIV");
+        contentDiv.id = data.city;
+        contentDiv = makeContent(contentDiv, data);
+        cardsDiv.prepend(contentDiv);
+    }
+    
 
     
     makeLocCard(data){
         //units selected here will define everything else
-        var cardsDiv = makeCard(data);
+        var cardsDiv = document.createElement("DIV");
+        cardsDiv.setAttribute("class", "mdl-card mdl-shadow--2dp wide-card");
+        data = parseData(data, units);
+        var contentDiv = document.createElement("DIV");
+        contentDiv.id = data.city;
+        cardsDiv.id = 'Card-' + data.city;
+
+        contentDiv = makeContent(contentDiv, data);
+        cardsDiv.appendChild(contentDiv);
         var actionsDiv = document.createElement("DIV");
         actionsDiv.setAttribute("class", "mdl-card__actions mdl-card--border");
         actionsDiv.innerHTML = "units: ";
-
+        
+        var form = document.createElement("FORM");
         var input = addradioButton("imperial");
         input.checked = true;
         var radioLbl = document.createElement("LABEL");
         radioLbl.innerHTML = "imperial";
-        actionsDiv.appendChild(input);
-        actionsDiv.appendChild(radioLbl);
+        radioLbl.setAttribute("class", "demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect")
+        form.appendChild(input);
+        form.appendChild(radioLbl);
 
         input = addradioButton("metric");
         radioLbl = document.createElement("LABEL");
         radioLbl.innerHTML = "metric";
-        actionsDiv.appendChild(input);
-        actionsDiv.appendChild(radioLbl);
+        radioLbl.setAttribute("class", "demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect")
+        form.appendChild(input);
+        form.appendChild(radioLbl);
+        actionsDiv.appendChild(form);
         cardsDiv.appendChild(actionsDiv);
 
         var app = document.getElementById("app-content")
@@ -104,6 +125,23 @@ class WeatherCards {
             "lon":this.lon,
             "units": units
         }, this.makeLocCard);
+
+        
+    }
+    
+    rerender(lat, lon){
+        var url = this.baseURL + 'weather?'
+        this.lat = lat;
+        this.lon = lon;
+        // get parent element
+        //
+        
+        CallAjax(url, {
+            "appid": this.API_KEY,
+            "lat":this.lat,
+            "lon":this.lon,
+            "units": units
+        }, this.rerenderContent);
 
         
     }
@@ -132,38 +170,31 @@ class App {
             return ''
             
         });
-        
-        
     }
-    
-    getCityLatLon(city, state){
-        //var geocoder = new google.maps.GeoCoder();
-        var geocoder = new google.maps.Geocoder();
-        
-        geocoder.geocode({'address': `${city},${state},us`}, function(results, status){
-            if (status == 'OK'){
-                console.log(results);
-                
-            } else{
-                console.log('did not get data')
-                
-            }
+    rerender(){
+        var that = this;
+        navigator.geolocation.getCurrentPosition(function(position){
+        that.cards.rerender(position.coords.latitude, position.coords.longitude);
+
+        }, function(error){
+            console.log('location not found');
+            return ''
+            
         });
     }
+    
     
 }
 
 
 var app = new App();
 
-
-document.addEventListener('DOMContentLoaded',function() {
-    document.querySelector("input[name='unit']").onchange=changeEventHandler;
-},false);
-
 function changeEventHandler(event) {
-    // You can use “this” to refer to the selected element.
-
     var unit = event.target.value;
     console.log(unit);
+    // change global value
+    units = unit;
+    app.rerender();
+    
 }
+
