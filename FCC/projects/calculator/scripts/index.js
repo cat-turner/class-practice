@@ -121,6 +121,25 @@ console.log(calc1);
 calc1.demo();
 console.log(calc1.start_value);
 
+// to do next
+/*add event listener to buttons*,
+such that when you press on the button, it
+1) appears on console
+2) is stored in app
+3) it is displayed in the calcu/
+
+*/
+
+function storeNumberInput()
+
+
+
+document.getElementByClass("number-btn").forEach(function(e){
+    element.addEventListener('click', storeNumberInput(e));
+    
+    
+})
+
 
 
 

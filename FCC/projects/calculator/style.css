@@ -1,0 +1,36 @@
+
+.calc-body {
+    background-color:black;
+}
+.calc-display {
+    background-color:white;
+    color:black;
+}
+
+.btn-large {
+    font-size:3vw;
+    width:7vw;
+    margin: 0 0 0 1vw;
+    background-color:black;
+}
+
+.btn-large:hover{
+    background-color:#2C75FF;
+}
+
+.btn-equal:hover {
+    background-color:#82ee82;
+}
+
+.btn-math:hover {
+    background-color:#FF5CCD;
+}
+
+.btn-clear:hover {
+    background-color:orange;
+}
+
+.input-box {
+    margin: 1vh 1vw 1vh 1vw;
+    padding:3vh;
+}
