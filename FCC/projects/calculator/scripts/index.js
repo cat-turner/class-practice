@@ -1,6 +1,12 @@
 
 class math_obj {
     constructor(value, action){
+        if (!value && action=='-'){
+            value = -1;
+            action = '*';
+        }else if (!value){
+            return;
+        }
         this.value = value;
         this.action = action;
     }
@@ -48,7 +54,12 @@ class Calculator {
         this.is_PEMAS = PEMDAS;
         this.calculator_inputs = [];
         this.start_value = 0;
+
+        //holds the string for display
         this.display_string = '';
+        
+        // holds the data, without math symbols
+        this.tempStorage = '';
     }
 
     appendInput(value, action){
@@ -71,14 +82,14 @@ class Calculator {
     displayInputs(input){
         //takes the data stored in calculate inputs, and 
         //renders the image
-        this.display_string += input.getString();
+        //this.display_string += input.getString();
         console.log('display:');
         console.log(this.display_string);
     }
     
-    displayTotal(total){
-        console.log('total:')
-        console.log(total);
+    displayTotal(input){
+        console.log('Total:');
+        console.log(input);
     }
     
     clearEverything(){
@@ -86,30 +97,19 @@ class Calculator {
         this.start_value = 0;
         
     }
-    
-    demo(){
-        var inputs = [[1,'+'], [2,'+'], [3,'+'],[4,'+'],[11,'-'],[-1,'/'],[10.5,'*'],['','=']];
-        this.appendInput('', '');
-        var that = this;
-        // you have to do this bc you are in the scope of foreach
-        inputs.forEach(function(input){
-            if (input[1]=='='){
-                var total = that.calculateInputs();
-                that.displayTotal(total);
-                // clear your inputs
-                that.clearEverything();
-                if(input[0]){
-                    that.start_value = input[0];
-                }else{
-                    that.start_value = total;
-                }
-            }else{
-                var match_obj = that.appendInput(input[0], input[1]);
-                that.displayInputs(match_obj);
-                
-            }
-        });
 
+    buttonInput(input, type){
+        if(type=="number"){
+            this.tempStorage = this.tempStorage + input;
+            this.displayInputs(input);
+            
+        }else{
+            this.appendInput(this.tempStorage, input);
+            this.displayInputs(input);
+            this.tempStorage = '';
+        }
+        
+        console.log(this.calculator_inputs);
         
     }
     
@@ -117,9 +117,9 @@ class Calculator {
 }
 
 var calc1 = new Calculator();
-console.log(calc1);
-calc1.demo();
-console.log(calc1.start_value);
+//console.log(calc1);
+//calc1.demo();
+//console.log(calc1.start_value);
 
 // to do next
 /*add event listener to buttons*,
@@ -130,17 +130,40 @@ such that when you press on the button, it
 
 */
 
-function storeNumberInput()
+function storeNumberInput(e){
+    var value = e.innerText;
+    console.log(value);
+}
 
 
 
-document.getElementByClass("number-btn").forEach(function(e){
-    element.addEventListener('click', storeNumberInput(e));
-    
-    
-})
+function clickNumber(element){
+    //console.log(element.innerText);
+    calc1.buttonInput(element.innerText, "number");
+}
 
+function clickMath(element){
+    //console.log(element.innerText);
+    calc1.buttonInput(element.innerText, "math");
+}
 
+function clickClear(element){
+    console.log("clear");
+    calc1.display_string = '';
+}
 
+function clickClearEverything(element){
+    console.log("clear everything");
+    calc1.clearEverything();
+    calc1.start_value = 0;
+}
 
+function clickEqual(element){
+    console.log(calc1.tempStorage);
+    var total = calc1.calculateInputs();
+    calc1.displayTotal(total);
+    // clear your inputs
+    calc1.clearEverything();
+    calc1.start_value = total;
+}
 
