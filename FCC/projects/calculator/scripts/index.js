@@ -2,47 +2,26 @@
 class math_obj {
     constructor(value, action){
         if (!value && action=='-'){
-            value = -1;
+            value = parseFloat(-1);
             action = '*';
-        }else if (!value){
-            return;
+        }else if (action && !value){
+            value = 0;
         }
-        this.value = value;
+        this.value = parseFloat(value);
         this.action = action;
     }
-    
-    getString(){
-        // creates the string to display something
-        return ` ${this.value} ${this.action} `;
-    }
-    
-    addVals(input){
-        return input + this.value;
-    }
-    
-    subtractVals(input){
-        return input - this.value;
-    }
-    
-    multVals(input){
-        return input * this.value;
-    }
-    
-    divideVals(input){
-        return input / this.value;
-    }
-    
+
     getResult(input){
         var action = this.action;
         switch(action){
             case '+':
-                return this.addVals(input);
+                return this.value + input;
             case '-':
-                return this.subtractVals(input);
+                return this.value - input;
             case '*':
-                return this.multVals(input);
+                return input * this.value;
             case '/':
-                return this.divideVals(input)
+                return this.value / input;
             default:
                 return input;
         }
@@ -53,13 +32,27 @@ class Calculator {
     constructor(PEMDAS = false){
         this.is_PEMAS = PEMDAS;
         this.calculator_inputs = [];
-        this.start_value = 0;
+        this.setStartValue(0);
 
         //holds the string for display
         this.display_string = '';
         
         // holds the data, without math symbols
         this.tempStorage = '';
+        this.runningTotal = '';
+    }
+    
+    setPEMDAS(){
+        if (!this.is_PEMDAS){
+            this.is_PEMDAS = true;
+        } else {
+            this.is_PEMDAS = false;
+        }
+    }
+    
+    setStartValue(value, action='+'){
+        var start_value = new math_obj(value, action);
+        this.calculator_inputs.push(start_value);
     }
 
     appendInput(value, action){
@@ -70,31 +63,81 @@ class Calculator {
     }
     
     calculateInputs(){
-        var total = this.start_value;
-        var inputs = this.calculator_inputs;
-        inputs.forEach(function(input){
-            total = input.getResult(total);
-        });
         
-        return total;
+        if (!this.is_PEMDAS){
+            var inputs = this.calculator_inputs;
+            for (var i = 0; i < inputs.length - 1; i++){
+                var total = inputs[i].getResult(inputs[i+1].value);
+                inputs[i+1].value = parseFloat(total);
+            }
+            
+            return total;
+        } else {
+            // sort entries in order of PEMDAS
+            var pemdasOrder= ['*','/','+','-',''];
+            var skip = []
+            var calcInputsSorted = [];
+            var inputs = this.calculator_inputs;
+            for (var i = 0; i < pemdasOrder.length; i++){
+                var operation = pemdasOrder[i];
+                for (var j = 0; j < inputs.length; j++){
+                    if (inputs[j].action === operation && !skip.includes(j) && inputs[j].value){
+                        var input1 = new math_obj(inputs[j].value, inputs[j].action);
+                        var input2 = new math_obj(inputs[j+1].value, inputs[j+1].action);
+                        if (!input1.action){
+                            input1.action = '+';
+                        }
+                        if (!input2.action){
+                            input2.action = '+';
+                        }
+                        calcInputsSorted.push(input1);
+                        calcInputsSorted.push(input2);
+                        skip.push(j);
+                        skip.push(j+1);
+                        
+                        
+                    }
+                }
+            }
+            console.log("look");
+            console.log(calcInputsSorted);
+            for (var i = 0; i < calcInputsSorted.length - 1; i++){
+                var total = calcInputsSorted[i].getResult(calcInputsSorted[i+1].value);
+                calcInputsSorted[i+1].value = parseFloat(total);
+            }
+            
+            return total;
+            
+        }
+    }
+    
+    cleardisplayText(){
+        document.getElementById("calc-display").innerHTML = '';
+    }
+    displayText(){
+        document.getElementById("calc-display").innerHTML = this.display_string;
     }
     
     displayInputs(input){
-        //takes the data stored in calculate inputs, and 
-        //renders the image
-        //this.display_string += input.getString();
-        console.log('display:');
+        this.display_string += input;
+        console.log('Display:');
         console.log(this.display_string);
+        this.displayText();
+        
     }
     
     displayTotal(input){
+        this.display_string = input;
         console.log('Total:');
         console.log(input);
+        this.displayText();
     }
     
     clearEverything(){
         this.calculator_inputs = [];
-        this.start_value = 0;
+        this.display_string = '';
+        this.tempStorage = '';
+        this.runningTotal = '';
         
     }
 
@@ -109,61 +152,61 @@ class Calculator {
             this.tempStorage = '';
         }
         
-        console.log(this.calculator_inputs);
-        
     }
     
     
 }
 
 var calc1 = new Calculator();
-//console.log(calc1);
-//calc1.demo();
-//console.log(calc1.start_value);
-
-// to do next
-/*add event listener to buttons*,
-such that when you press on the button, it
-1) appears on console
-2) is stored in app
-3) it is displayed in the calcu/
-
-*/
-
-function storeNumberInput(e){
-    var value = e.innerText;
-    console.log(value);
-}
-
-
 
 function clickNumber(element){
-    //console.log(element.innerText);
     calc1.buttonInput(element.innerText, "number");
 }
 
 function clickMath(element){
-    //console.log(element.innerText);
     calc1.buttonInput(element.innerText, "math");
 }
 
 function clickClear(element){
     console.log("clear");
     calc1.display_string = '';
+    calc1.cleardisplayText();
+    // remove temp storage values
+    calc1.tempStorage = calc1.runningTotal;
+    calc1.calculator_inputs = [];
 }
 
 function clickClearEverything(element){
     console.log("clear everything");
     calc1.clearEverything();
-    calc1.start_value = 0;
+    calc1.setStartValue(0);
+    calc1.cleardisplayText();
 }
 
 function clickEqual(element){
-    console.log(calc1.tempStorage);
-    var total = calc1.calculateInputs();
-    calc1.displayTotal(total);
-    // clear your inputs
-    calc1.clearEverything();
-    calc1.start_value = total;
+    if (calc1.calculator_inputs.length != 0){
+        calc1.appendInput(calc1.tempStorage, '=');
+        var total = calc1.calculateInputs();
+        calc1.displayTotal(total);
+        // clear your inputs
+        calc1.clearEverything();
+        calc1.tempStorage = total;
+        calc1.display_string = total;
+        // this is to keep the value of running
+        //total, in case they clear
+        calc1.runningTotal = total;
+    } else {
+        return;
+    }
 }
 
+function setPemdasMode(){
+    var btn = document.getElementById("pemdas-mode");
+    calc1.setPEMDAS();
+    if (calc1.PEMDAS){
+        calc1.style.color="lightblue";
+    } else {
+        calc1.style.color="black";
+        
+    }
+}
