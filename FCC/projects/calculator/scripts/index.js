@@ -41,15 +41,7 @@ class Calculator {
         this.tempStorage = '';
         this.runningTotal = '';
     }
-    
-    setPEMDAS(){
-        if (!this.is_PEMDAS){
-            this.is_PEMDAS = true;
-        } else {
-            this.is_PEMDAS = false;
-        }
-    }
-    
+
     setStartValue(value, action='+'){
         var start_value = new math_obj(value, action);
         this.calculator_inputs.push(start_value);
@@ -63,52 +55,14 @@ class Calculator {
     }
     
     calculateInputs(){
-        
-        if (!this.is_PEMDAS){
-            var inputs = this.calculator_inputs;
-            for (var i = 0; i < inputs.length - 1; i++){
-                var total = inputs[i].getResult(inputs[i+1].value);
-                inputs[i+1].value = parseFloat(total);
-            }
-            
-            return total;
-        } else {
-            // sort entries in order of PEMDAS
-            var pemdasOrder= ['*','/','+','-',''];
-            var skip = []
-            var calcInputsSorted = [];
-            var inputs = this.calculator_inputs;
-            for (var i = 0; i < pemdasOrder.length; i++){
-                var operation = pemdasOrder[i];
-                for (var j = 0; j < inputs.length; j++){
-                    if (inputs[j].action === operation && !skip.includes(j) && inputs[j].value){
-                        var input1 = new math_obj(inputs[j].value, inputs[j].action);
-                        var input2 = new math_obj(inputs[j+1].value, inputs[j+1].action);
-                        if (!input1.action){
-                            input1.action = '+';
-                        }
-                        if (!input2.action){
-                            input2.action = '+';
-                        }
-                        calcInputsSorted.push(input1);
-                        calcInputsSorted.push(input2);
-                        skip.push(j);
-                        skip.push(j+1);
-                        
-                        
-                    }
-                }
-            }
-            console.log("look");
-            console.log(calcInputsSorted);
-            for (var i = 0; i < calcInputsSorted.length - 1; i++){
-                var total = calcInputsSorted[i].getResult(calcInputsSorted[i+1].value);
-                calcInputsSorted[i+1].value = parseFloat(total);
-            }
-            
-            return total;
-            
+        var inputs = this.calculator_inputs;
+        for (var i = 0; i < inputs.length - 1; i++){
+            var total = inputs[i].getResult(inputs[i+1].value);
+            inputs[i+1].value = parseFloat(total);
         }
+        
+        return total;
+        
     }
     
     cleardisplayText(){
@@ -200,13 +154,4 @@ function clickEqual(element){
     }
 }
 
-function setPemdasMode(){
-    var btn = document.getElementById("pemdas-mode");
-    calc1.setPEMDAS();
-    if (calc1.PEMDAS){
-        calc1.style.color="lightblue";
-    } else {
-        calc1.style.color="black";
-        
-    }
-}
+
