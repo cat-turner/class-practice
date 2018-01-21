@@ -1,0 +1,11 @@
+
+// in this wa you can export multiple methods.
+// this is how yu make them global
+exports.goodbye = function(){
+    console.log("bye!");
+    
+}
+
+baz = function(){
+console.log("I'm a secret module");
+}
