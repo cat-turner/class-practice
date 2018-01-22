@@ -9,4 +9,6 @@ var gb = require('/.custom_goodbye');
 
 hello();
 
-gb();
+// calling the goodbye method
+
+gb.goodbye();
