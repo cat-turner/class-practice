@@ -34,6 +34,7 @@ app.get('/currentDate', function(request, response){
     var mm = d.getMonth() + 1;
     var yyyy = d.getFullYear();
     response.send(`The current date is ${mm}-${dd}-${yyyy}.`);
+    // Simpler way: Date()
 });
 
 // bind app to port
