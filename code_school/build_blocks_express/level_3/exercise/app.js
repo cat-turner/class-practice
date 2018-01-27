@@ -13,7 +13,8 @@ var cities = {
     "nyc":"New York",
     "providence":"Rhode Island",
     "boston":"Massachusetts",
-    "los angeles": "California"
+    "los angeles": "California",
+    "miami":"florida"
 
 }
 
