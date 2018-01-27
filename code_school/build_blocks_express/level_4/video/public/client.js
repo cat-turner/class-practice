@@ -1,0 +1,6 @@
+/*global $*/
+
+$(function(){
+    //$.get('/test')
+    
+});
