@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Cities</h1>
+    <form>
+        <legend>New City</legend>
+        <input name="name" placeholder="Name" pattern=".{4,}" required title="4 characters minimum"><br/>
+        <input name="state" placeholder="State" pattern=".{2,}" required title="2 characters minimum">
+        <input type="Submit">
+    </form>
+    
+    <ul class='city-list'></ul>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
