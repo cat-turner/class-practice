@@ -36,11 +36,9 @@ function createDocument(name, health, attacksArray, statsObj, db){
     
 }
 
-var dbName = "myGame";
-
 // create the document
-createDocument("Cat",9000, ["code", "sleep", "eat"], {"Attack":1000000, "Defense":1000000}, dbName);
-createDocument("Cat2",9000, ["code", "sleep", "eat"], {"Attack":1000000, "Defense":1000000}, dbName);
+createDocument("Cat",9000, ["code", "sleep", "eat"], {"Attack":1000000, "Defense":1000000}, db);
+createDocument("Cat2",9000, ["code", "sleep", "eat"], {"Attack":1000000, "Defense":1000000}, db);
 
 // Write the code that would then console.log all the documents inside the collection.
 db.myGame.find();
