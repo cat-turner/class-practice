@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="store">
+  <head>
+    <title>My Angular App</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"></script>
+  
+  </head>
+  <div >
+  <h1>enterpron car rental</h1>
+  
+  <body ng-controller="StoreController as store">
+    <div ng-repeat="product in store.products" class="item">
+        <img ng-src="./imgs/{{product.images[0].full}}" height="200px" width="250px" />
+        <h3 ng-hide="product.canPurchase">Unavailable</h3>
+        <h3 ng-show="product.canPurchase">name: {{product.name | uppercase}}</h3>
+        <h4>type: {{product.type}}</h4>
+        <div ng-show="product.canPurchase">
+          
+          <h4> price per day: {{product.price | currency}}</h4>
+          <p>color: {{product.color}}</p>
+          <p>description: {{product.description}}</p>
+          <button ng-click="store.updateQuantity(product.id)" class="btn btn-primary"> Add to Cart</button>
+        </div>
+
+
+    </div>
+  </body>
+</html>
