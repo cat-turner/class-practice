@@ -1,0 +1,31 @@
+{
+  "name": "mean-app",
+  "version": "1.0.0",
+  "description": "MEAN stack application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullstacktraining/mean-stack-app.git"
+  },
+  "keywords": [
+    "mean"
+  ],
+  "author": "Full Stack Training",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fullstacktraining/mean-stack-app/issues"
+  },
+  "homepage": "https://github.com/fullstacktraining/mean-stack-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.13.3",
+    "nodemon": "^1.14.12"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
+}

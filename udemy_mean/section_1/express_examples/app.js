@@ -5,8 +5,30 @@ var path = require('path');
 
 app.set('port', process.env.PORT)
 
-// some middleware
+// if you move the static file call here, you
+// wont get anything. this is because you have rendered you
+// static files before your logging function.
 
+app.use(function(req, res, next){
+    console.log(req.method, req.url);
+    next();
+    
+});
+
+// to define a middleware function to be called everytime 
+// a specific directory is added, pass in a route
+
+/*
+app.use('/css', function(req, res, next){
+    console.log(req.method, req.url);
+    next();
+    
+});
+*/
+
+
+// be sure to have this after your middlewear
+// this is to ensure 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
 
