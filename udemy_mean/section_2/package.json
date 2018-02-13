@@ -1,0 +1,20 @@
+{
+  "name": "meaniehotel",
+  "version": "1.0.0",
+  "description": "mean hotel api from mean stack 0 to hero",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "mean"
+  ],
+  "author": "cathleen turner",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.2"
+  }
+}
