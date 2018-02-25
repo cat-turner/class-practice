@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>JS Bin</title>
+  <style>
+    .red {
+      color: red;
+    }
+    .green {
+      color: green;
+    }
+    .ng-cloak [ng-cloak], [ng\:cloak] {
+        display: none !important;
+    }
+  </style>
+</head>
+<body ng-cloak>
+  
+  <p> Hello, {{user}}</p>
+<input type="text" name="" id="" ng-model="user">
+<div ng-init="number = 0">
+  <button ng-click="number = number + 1">+1</button>
+  <button ng-click="number = number - 1">-1</button>
+  <p>{{number}}</p>
+</div>
+  
+  Show me the paragraph <input type="checkbox" ng-model="isChecked">
+  <p ng-if="isChecked">Secret Message</p>
+
+  <div ng-init="number = 19">
+    <input type="type" ng-model="guess" ng-class="{red: guess!=number,
+     green: guess == number}">
+    
+  </div>
+  
+
+  <div ng-init="rebels = [
+                {name: 'Luke Skywalker', profession:'jedi', weapon: 'lifesaver', age: 1},
+                {name: 'Luke Skywalker2', profession:'jedi2', weapon: 'lifesaver2', age: 2},
+                {name: 'Luke Skywalker3', profession:'jedi3', weapon: 'lifesaver3', age:3},
+                {name: 'Sally Skywalker3', profession:'jedi3', weapon: 'lifesaver3', age:3}
+                ];">
+  
+  <select name="" id="" ng-model="rebel" ng-options="rebel.name group by rebel.weapon for rebel in rebels"></select>
+    <p>You have selected: {{rebel.name}} ({{rebel.profession}})</p>
+    <p>Free Text Search: <input type="text" ng-model="search.$"></p>
+
+  <!-- search by only the weapoon property-->
+  <input type="text" ng-model="search.weapon">
+  <ul>
+      <li ng-repeat="rebel in rebels | filter:search">
+          {{rebel.name}}
+          (age:{{rebel.age}}) is a {{ rebel.profession}} fighting with a {{rebel.weapon}}
+      </li>
+      
+  </ul>
+  </div>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+</body>
+</html>
