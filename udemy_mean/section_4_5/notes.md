@@ -1,4 +1,4 @@
-# Introduction to Angularjs
+# Introduction to Angularjs - Section 4 + 5
 
 ## Video 35 Expressions and Data Binding
 - expressions
@@ -201,7 +201,7 @@ to apply the search for everything, use search with $ sign
 
 ```
     <p>Free Text Search: <input type="text" ng-model="search.$"></p>
-    ```
+```
     
 be sure to look at documentation for built in filters
 
@@ -373,3 +373,72 @@ hotel
 
 use ng-pattern to specify rules to validate forms
 you can add code such that the form inputs are checked only when the form is submitted
+
+# Section 5 - Authentication
+
+## Video 49 - Authentication
+
+### Server based authentication
+
+How does it work?
+
+- stateless http protocol
+- user information stored in cookie
+- serialised/deserialized
+
+1. A user puts in their username and passord
+2. the server recieves it, and
+3. the server creates a cookie
+4. all the server communication between the server and the client uses this cookie to make sure the user is authenticated
+
+
+in token-based authenticated, a token is generated on the serverside
+all client communication will use that token
+if the token is valid, the server will permit that request
+
+JSON web tokens
+-jwt ('jot')
+- 'header','payload', 'signature'
+- payload can contain data like user name
+
+How to implement this?
+
+backend
+-generate token
+-handle registration/login
+
+frontend
+-handle authentication from the UI
+
+6 steps to add functionality that requires adding inputs to db
+
+1. create model for users -> api/data/users.model.js
+2. add model+schema to db.js
+3. add controller end point -> api/routes/index.js
+4. add controller code -> api/controller/users.controller.js (register, login functionality)
+5. add route to api/routes.index.s (these are you authentication routes)
+6. use postman to test your controller by sending requests
+ * look the console (if you added console logging)
+ * checkout your db to see if you have added the data
+
+
+## Video 50 - adding jwt to the app
+
+install json webtoken
+
+```
+npm i jsonwebtoken
+
+```
+
+install bcrypt-nodejs
+https://stackoverflow.com/questions/34546272/cannot-find-module-bcrypt
+
+```
+npm install bcrypt-nodejs --save
+```
+
+
+## Video 51 - Adding authentication to AngularJS
+
+goals: register a user for
