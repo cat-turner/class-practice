@@ -7,8 +7,13 @@
 </head>
 <body>
   
-  <!--create the ng view directive-->
-  <div ng-view></div>
+  <!-- put navbar at every page-->
+  <mh-navigation></mh-navigation>
+  <div class="container">
+    <!--create the ng view directive-->
+    <div ng-view></div>
+  </div>
+  
 
   <footer class="footer">
     <div class="container">
@@ -25,6 +30,7 @@
   <script src="jquery/jquery-2.1.4.min.js"></script>
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-route/angular-route.js"></script>
+  <script src="node_modules/angular-jwt/dist/angular-jwt.js"></script>
   <script src="angular-app/app.js"></script>
   <!-- include your controllers -->
   <script type="text/javascript" src="angular-app/app.js"></script>
@@ -33,7 +39,11 @@
   <!--<script src="angular-app/hotel-display/hotel-disp-controller.js"></script>-->
   <script src="angular-app/hotel-display/hotel-display-controller.js"></script>
   <script type="text/javascript" src="angular-app/hotel-data-factory/hotel-data-factory.js"></script>
-  <script type="text/javascript" src="angular-app/hotel-rating/hotel-rating-directive.js"></script>
-
+  <script src="angular-app/hotel-rating/hotel-rating-directive.js"></script>
+  <script src="angular-app/register/register-controller.js"></script>
+  <script src="angular-app/navigation-directive/navigation-directive.js"></script>
+  <script src="angular-app/login/login-controller.js"></script>
+  <script src="angular-app/auth/auth-factory.js"></script>
+  <script src="angular-app/auth/auth-interceptor.js"></script>
 </body>
 </html>

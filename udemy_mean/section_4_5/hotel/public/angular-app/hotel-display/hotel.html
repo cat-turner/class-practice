@@ -14,8 +14,11 @@
   <li ng-repeat="review in vm.hotel.reviews"> <strong>{{ review.name }} says:</strong> {{ review.review }}</li>
 </ul>
 
-
-<!--note that these forms have some way of validating the input-->
+<!-- set up such that content can be viewed only if logged in-->
+<div ng-if="vm.isLoggedIn()">
+  <!-- you can only add review if you're logged in-->
+  
+  <!--note that these forms have some way of validating the input-->
 
 
 <form name="vm.reviewForm" ng-submit="vm.addReview()">
@@ -37,4 +40,9 @@
 
   <button type="submit" class="btn">Add review</button>
 </form>
+  
+  
+</div>
+
+
 

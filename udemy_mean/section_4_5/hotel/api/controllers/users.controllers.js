@@ -70,6 +70,7 @@ module.exports.authenticate = function(req, res, next) {
       }
     });
   } else {
+    console.log('no header!!!');
     res.status(403).json('No token provided');
   }
 };

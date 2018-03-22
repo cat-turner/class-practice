@@ -1,22 +1,33 @@
 angular.module('meanhotel').controller('HotelController', HotelController);
 
-function HotelController($route, $routeParams, hotelDataFactory) {
+function HotelController($route, $routeParams, $window, hotelDataFactory, AuthFactory, jwtHelper) {
   var vm = this;
-  //vm.name = "Test";
   var id = $routeParams.id;
   vm.isSubmitted = false;
   hotelDataFactory.hotelDisplay(id).then(function(response) {
     vm.hotel = response.data;
     vm.stars = _getStarRating(response.data.stars);
   });
-  
+
   function _getStarRating(stars) {
     return new Array(stars);
   }
 
+  vm.isLoggedIn = function() {
+    if (AuthFactory.isLoggedIn) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   vm.addReview = function() {
+
+    var token = jwtHelper.decodeToken($window.sessionStorage.token);
+    var username = token.username;
+
     var postData = {
-      name: vm.name,
+      name: username,
       rating: vm.rating,
       review: vm.review
     };
@@ -34,5 +45,3 @@ function HotelController($route, $routeParams, hotelDataFactory) {
   };
 
 }
-
-

@@ -22,15 +22,7 @@ module.exports.hotelsGetAll = function(req, res) {
     count = parseInt(req.query.count, 10);
   }
   
-  // check for lat lon value
-  // geoNEAR doesn't work
-  // TODO: fix with this solution
-  // https://stackoverflow.com/questions/29255525/how-to-use-geonear-in-nodejs
-  // if (req.query && req.query.lat && req.query.lng){
-  //   runGeoQuery(req, res);
-  //   return;
-  // }
-  
+
   // check if not good value
   
   if (isNaN(offset) || isNaN(count)){

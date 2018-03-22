@@ -1,5 +1,5 @@
 // call angular module, and call the  the dependancy ngRoute
-angular.module('meanhotel', ['ngRoute']).config(config);
+angular.module('meanhotel', ['ngRoute', 'angular-jwt']).config(config).run(runAuth);
 
 function config($routeProvider) {
   $routeProvider
@@ -12,8 +12,35 @@ function config($routeProvider) {
       templateUrl: 'angular-app/hotel-display/hotel.html',
       controller: HotelController,
       controllerAs: 'vm'
+    })
+    .when('/register', {
+      templateUrl: 'angular-app/register/register.html',
+      controller: RegisterController,
+      controllerAs: 'vm',
+      access: {
+        restricted: false
+      }
+    })
+    .when('/profile', {
+      templateUrl: 'angular-app/profile/profile.html',
+      access: {
+        restricted: true
+      }
+    })
+    .otherwise({
+      redirectTo: '/'
     });
 }
+
+function runAuth($rootScope, $location, $window, AuthFactory) {
+  $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+    if (nextRoute.access !== undefined && nextRoute.access.restricted && !$window.sessionStorage.token && !AuthFactory.isLoggedIn) {
+      event.preventDefault();
+      $location.path('/');
+    }
+  });
+}
+
 
 // wow, wtf why change this
 // url encoding breaks routes
