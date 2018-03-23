@@ -43,7 +43,7 @@ module.exports.login = function(req, res) {
         // secret string should not be in source, but should
         // be stored as environmental variable
         //s3cr3t
-        var token = jwt.sign({ username: user.username }, 's3cr3t', { expiresIn: 3600 });
+        var token = jwt.sign({ username: user.username }, 's3cr3t', { expiresIn: 86400 }); //expirse in 24 hours
         res.status(200).json({success: true, token: token});
       } else {
         res.status(401).json('Unauthorized');

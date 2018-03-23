@@ -23,7 +23,8 @@ function HotelController($route, $routeParams, $window, hotelDataFactory, AuthFa
 
   vm.addReview = function() {
 
-    var token = jwtHelper.decodeToken($window.sessionStorage.token);
+    var raw_token = $window.sessionStorage.token;
+    var token = jwtHelper.decodeToken(raw_token);
     var username = token.username;
 
     var postData = {
@@ -32,7 +33,7 @@ function HotelController($route, $routeParams, $window, hotelDataFactory, AuthFa
       review: vm.review
     };
     if (vm.reviewForm.$valid) {
-      hotelDataFactory.postReview(id, postData).then(function(response) {
+      hotelDataFactory.postReview(id, postData, raw_token).then(function(response) {
         if (response.status === 200) {
           $route.reload();
         }

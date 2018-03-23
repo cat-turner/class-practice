@@ -16,8 +16,17 @@ function hotelDataFactory($http) {
     return $http.get('/api/hotels/' + id).then(complete).catch(failed);
   }
 
-  function postReview(id, review) {
-    return $http.post('/api/hotels/' + id + '/reviews', review).then(complete).catch(failed);
+  function postReview(id, review, token) {
+    // have to pass in token through the auth header.
+    return $http({
+      method: 'POST',
+      url:'/api/hotels/' + id + '/reviews',
+      headers:{
+        'authorization': 'Token ' + token
+      },
+      data: review
+    }).then(complete).catch(failed);
+
   }
 
   function complete(response) {
