@@ -1087,3 +1087,48 @@ use an interface only if its the right engineering choice
 
 > no more setters in and getters. follow the idioms of the languages you write in
 
+> build layers of api that work together
+> make each layer testable
+
+```
+
+The layers of an API....
+
+======
+High Level
+======
+Lower Level API
+======
+Base
+=====
+```
+
+make your lower level api exportable
+
+
+### Code coverage
+
+What is the right code coverage to say you are done writing softare
+
+> 80 - 75% code coverage in happy path
+
+Optimize for correctness first. Then optimize for correctness.
+
+If you share a value on the call stack, you have to create an allocation on the heap.
+
+Escape analysis and allocation when you design an API
+
+https://en.wikipedia.org/wiki/Escape_analysis
+
+## Decoupling
+https://en.wikipedia.org/wiki/Escape_analysis
+
+Read the concerete solution. Without interace pollution, you see point A to point B.
+
+> interfaces define behavior. they are not person, places, or things.
+
+If the interface does not define behavior, this is bad behavior
+
+> Concrete type --> Nouns (Person, places, or things)
+> Interface type --> Verbs (behaviors)
+
