@@ -1132,3 +1132,45 @@ If the interface does not define behavior, this is bad behavior
 > Concrete type --> Nouns (Person, places, or things)
 > Interface type --> Verbs (behaviors)
 
+Costs:
+indirection
+allocation
+
+Use when:
+
+Interface values are not real.
+The interface is just a shell to get the concrete data in a decoupled way.
+
+## Code review
+
+1. Code readability review
+- validate semantics
+- validate choices on variables
+
+if you are doing code reviews, and you are not getting suggestions, you will be promoted up
+2. Technical Code Review
+- choices on algorithms
+
+
+## The process
+
+1. Solve the problem in the concrete
+2. Write some tests. Get 80/70% coverage in happy path
+3. Think about how this might change in the future
+4. Decoupled the code
+
+## view your code profile with pprof
+
+see whats under the hood. this is what generates the visualization fo what parts of code and using up your CPU (and the percentage)
+
+https://medium.com/@cep21/creating-custom-go-profiles-with-pprof-b737dfc58e11
+
+golang trace
+
+https://medium.com/@cep21/go-1-7-httptrace-and-context-debug-patterns-608ae887224a
+
+https://about.sourcegraph.com/go/an-introduction-to-go-tool-trace-rhys-hiltner/
+
+
+atomic package
+https://golang.org/pkg/sync/atomic/
