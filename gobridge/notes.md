@@ -11,7 +11,7 @@ Concurrency
 Profiling/Debugging
 
 
-Language Mechanics
+### Language Mechanics
 Gobridge Training
 https://github.com/ardanlabs/gotraining/tree/master/topics/go/language
 
@@ -145,7 +145,7 @@ Just be consitant. Consitancy is key to everything
 Var: denotes zero value declaration. Var is the only way in go to get zero value
 Literals 9/10 give you zero vals
 
-Strings
+### Strings
 A string is two words. Has two bins, first is nil and second is 0 (has its length)
 
 := to declare data type and initialize at same time
@@ -201,6 +201,8 @@ Every go routine get its own block of memory called the stack
 A function in go goes in the stack because the size of its frame is calculated at compile time. Frames are boxes of memory in stack. 
 FRAME = BOX
 & : address of
+
+###  Stacks
 
 Stacks in go
 
@@ -267,9 +269,8 @@ No go routines stack can be shared with any other stack
 
 What happens if you make a function call,and you don’t have any more memory in stack
 
-Stakcs are for storing values of functoins and are preallocated
-
-Pointers are for sharing
+>Stacks are for storing values of functoins and are preallocated
+>Pointers are for sharing
 
 If you share a value that goes up the call stack
 Escape integrity analysis will put that value in heap
@@ -281,7 +282,7 @@ Growing stacks means copying the original stack and moves it somewhere else, and
 
 Stack - good because localized memories increase performance
 
-Heap
+### Heap
 Pacing algorithm - its job is to gather statistics about your running program, and determines the time it to take the hit for garbage collection
 The pacing alogrithm determines how garbage colleciton is done
 
@@ -299,12 +300,9 @@ Allocating more memory in heap initially actually is slower, because gc does mor
 
 With more cores (to CPU) it distributes the go routine to other cores
 
-
-<<
-
 When we prorgam we think about where we will keep the data, stack or heap.
 
-Anyhting that requires heap requires gc
+Anything that requires heap requires gc
 This involves the pacing algorithm
 
 Otherwise (on heap) it is self cleaning, which is NOT garbage collection
@@ -318,9 +316,7 @@ We need to know when is it ok to share something(heap) vs when is it ok to put o
 Short lifespan - stack
 Long lifespan -heap
 
-
->>
-Factory function
+### Factory function
 A function that creates and intializes a value in go
 
 Unmarshall
@@ -440,8 +436,8 @@ If data changes, the algorithms would no longer work
 
 Think about the data. What does the input data look like. What kind of output do you want.
 
-Data Oriented Design - Design Philosophy
-Data oriented design is understanding the data you ware working with first, and building your code around that.
+### Data Oriented Design - Design Philosophy
+> Data oriented design is understanding the data you ware working with first, and building your code around that.
 
 Writing anything for tomorrow outside of design is a waste of time. Don’t do it. Write code you only need for today.
 
@@ -490,7 +486,7 @@ fmt.Printf - can print data structures we create
 
 Println - only print go data structures
 
-Reference Types
+### Reference Types
 A whole other section. I need to fill this in.
 Make, Map, Channels - important functions in this world
 Arrays
@@ -537,7 +533,7 @@ If it has noting, it returns empty slice []
 
 Use the built-in function append to add to the slice.
 
-Empty Struct
+### Empty Struct
 Var e struct{}
 A special data structure in go. It has a pointer. What is it pointing to? An empty string.
 Why? This is used to discern if we have no results (empty slice / list) or it wasn’t initialized.
@@ -693,9 +689,9 @@ How this is done is through values vs pointers
 
 In API design we focus on behavior of data
 
+### Package oriented design
 
-=====
-Package oriented design - packages on the same level should not depend on each other. 
+packages on the same level should not depend on each other. 
 
 Reorganize your packages to show import relationships
 Import down….don’t ever import up.
@@ -740,7 +736,7 @@ Dependencies == Opinions
 
 Keep this mentality : every package on the same level is written in a different language.
 
-Embedding
+### Embedding
 
 In go you have inner and outer types.
 
@@ -761,7 +757,7 @@ If first letter of package is uppercase = yes exported
 There is no public, private, etc
 
 
-API Design Philosophy
+### API Design Philosophy
 IN that 3rd time, think about boilerplating something
 
 “Programming smells”: bad habits that show up in code
@@ -798,7 +794,7 @@ Prototyping and proof of concepts
 (which one is the most important?) work in the concrete. Find a working implimentation. Once you impliment in concrete, then you are going. 
 Solve one problem at a time, then refactor. 
 
-When is a product done.
+### When is a product done.
 
 You need to have test coverage. 100% code coverage on the happy path (when everything is right). 80% is everything else.
 What has to change in your code? Decouple the change from that code (refactor, decouple). Do that.
@@ -880,7 +876,7 @@ Always start from bottom up.
 
 (making a testable API makes it more complex than it needs to be)
 
-Error Handling
+### Error Handling
 Error is meant to provide context, so that the developer will know how to proceed.
 Here’s what you can do:
 
@@ -904,7 +900,7 @@ Keep error handling decoupled. Don’t attribute type to errors
 
 4 core behaviors of errors
 
-Temporary
+### Temporary
 Timeout
 Not Found
 
@@ -930,7 +926,7 @@ Debugging and tracing
 
 Only write to stdout when there is an actual error
 
-Concurrency
+### Concurrency
 The job of the scheduler is to run within a certain amount of time.
 Context switches take up resources
 You need to understand the workload you are doing 
@@ -974,7 +970,7 @@ Splitting work to run in parallel, is not useful.
 Read the data race section.
 https://github.com/ardanlabs/gotraining/blob/master/topics/go/concurrency/data_race/README.md
 
-Channels
+### Channels
 https://github.com/ardanlabs/gotraining/blob/master/topics/go/concurrency/channels/README.md
 
 Channels == signal. Signal another people to do something with data or w/o it
@@ -1033,3 +1029,44 @@ Go has call graphs, which can be helpful to find bottle necks
 
 
 
+## New notes
+
+### Semantics
+https://en.wikipedia.org/wiki/Semantics_(computer_science)
+
+
+past
+
+think of the world of objects, which are defined by data and behavior
+
+now
+
+keep data and behavior seperate. this is how you will have more robust APIs
+
+DO NOT MIX SEMANTICS. 
+
+
+Semantic consistancy will save you every single time.
+do not work in value semantic node. because you will be changing the copy. not the actual value. this leads to trouble.
+
+use value semantics for built in types
+use value semantics for string, int, and bools
+not pointer
+
+
+use reference types
+designed to stay on your stack. we can make copies of those.
+slices, map
+
+decode, unmarshall - require that you share
+
+slices - store, access, iterate your data
+
+mask is a mutation api
+mask is a value semantic mutation api
+
+you might want to use pointer semantics here because it mutates - WRONG
+
+not sure what to use? use pointer semantics. 
+
+> Engineering rule: if you don't know to take the risk. Don't.
