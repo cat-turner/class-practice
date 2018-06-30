@@ -1,10 +1,9 @@
 GoBridge Training Notes
 Speaker: Bill Kennedy
-Hosted by: GoBridge Framingham
+Hosted by: GoBridge Providence
 
 Home place:
 https://github.com/ardanlabs/gotraining/tree/master/topics/courses/go
-Topics covered 4/22 - 4/23
 Language Mechanics: Everything except functions
 Design
 Concurrency
