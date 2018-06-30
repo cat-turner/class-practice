@@ -1071,3 +1071,19 @@ you might want to use pointer semantics here because it mutates - WRONG
 not sure what to use? use pointer semantics. 
 
 > Engineering rule: if you don't know to take the risk. Don't.
+
+Make your api function more testable
+
+```
+func SendEmail(name string, email string, age int)
+
+```
+
+there is a big cost to decoupling
+decoupling always takes the cost of allocation
+decoupling is not free
+
+use an interface only if its the right engineering choice
+
+> no more setters in and getters. follow the idioms of the languages you write in
+
