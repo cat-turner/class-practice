@@ -1,7 +1,7 @@
 # Go Primer
 
 
-A few steps to get you started in go
+A few steps to get you started in go.
 
 ## Go: in a nutshell
 
@@ -17,7 +17,7 @@ A few steps to get you started in go
 - rich support for concurrency using goroutines and channels
 
 go routines:
-run a function and move on to the next line, even when that first function
+run a function and move on to the next line, even when that first function has not finished executing
 
 channels:
 provide a way for 2 goroutines to talk to each other and synchronize their execution
