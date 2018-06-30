@@ -560,7 +560,7 @@ If you do know, then you CAN preallocate and store it to the stack...this can be
 
 Slicing in go is like python
 Include the starting value but not the ending index
-[a:b)
+
 
 Slice2 := slice1[2:4]
 
@@ -700,6 +700,7 @@ https://www.goinggo.net/2017/02/design-philosophy-on-packaging.html
 
 https://github.com/ardanlabs/gotraining/blob/master/topics/go/design/packaging/README.md
 
+```
 Kit                     Application
 
 ├── CONTRIBUTORS        ├── cmd/
@@ -713,6 +714,7 @@ Kit                     Application
 ├── timezone/
 ├── udp/
 └── web/
+```
 Platform - internal tools that apply only to this application.
 Internal - code for the API only. Outside APIs do not need it.
 
