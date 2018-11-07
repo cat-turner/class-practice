@@ -1,3 +1,4 @@
+All Devops Jedis DO These Things:
 disciplined learning
 continuous experimentation
 ===
