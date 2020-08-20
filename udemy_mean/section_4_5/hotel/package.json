@@ -16,7 +16,7 @@
     "angular": "^1.6.9",
     "angular-jwt": "^0.1.9",
     "angular-route": "^1.6.9",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
